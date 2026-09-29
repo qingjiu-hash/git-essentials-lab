@@ -24,14 +24,16 @@ public final class Catalog {
         return book;
     }
 
-    public List<Book> books() {
+      public List<Book> books() {
         return List.copyOf(books.values());
     }
 
     public List<Book> search(String query) {
         Objects.requireNonNull(query, "Search query is required");
+        String normalizedQuery = query.toLowerCase(Locale.ROOT);
         return books.values().stream()
-                .filter(book -> book.title().contains(query))
+                .filter(book -> book.title().toLowerCase(Locale.ROOT)
+                        .contains(normalizedQuery))
                 .toList();
     }
 }
